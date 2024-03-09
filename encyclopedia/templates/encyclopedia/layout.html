@@ -17,9 +17,9 @@
     <div class="row">
       <div class="sidebar col-lg-2 col-md-3">
         <h2>Wiki</h2>
-        <form action="{% url 'wikipedia:get_article' title %}" method="POST">
+        <form action="{% url 'wikipedia:search' %}" method="POST">
           {% csrf_token %}
-          <input class="search" type="text" name="q" placeholder="Search Encyclopedia" />
+          {{ form }}
           <input type="submit" value="Search" />
         </form>
         <div>
