@@ -20,13 +20,16 @@
         <form action="{% url 'wikipedia:search' %}" method="POST">
           {% csrf_token %}
           {{ form }}
-          <input type="submit" value="Search" />
         </form>
         <div>
           <a href="{% url 'wikipedia:index' %}">Home</a>
         </div>
-        <div>Create New Page</div>
-        <div>Random Page</div>
+        <div>
+          Create New Page
+        </div>
+        <div>
+          Random Page
+        </div>
         {% block nav %} {% endblock %}
       </div>
       <div class="main col-lg-10 col-md-9">{% block body %} {% endblock %}</div>
