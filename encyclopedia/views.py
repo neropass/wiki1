@@ -34,11 +34,17 @@ def search(request):
                 for word in util.list_entries():
                     if title.lower() in word.lower():
                         sub.append(word)
+                if sub == []:
+                    return render(request, "encyclopedia/error.html", {
+                    "title": title,
+                    "form": form
+                })
                 return render(request, "encyclopedia/results.html", {
                             "entries": sub,
                             "title": title,
                             "form": form
                         })
+            
             else:
                 return result
     else:
