@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django import forms
+import random
 
 class SearchForm(forms.Form):
     search = forms.CharField(label="Search")
@@ -53,3 +54,6 @@ def search(request):
         "entries": util.list_entries(),
         "form": form
     })
+
+def random_page(request):
+    return get_article(request, random.choice(util.list_entries()))
