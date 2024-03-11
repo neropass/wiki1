@@ -55,5 +55,18 @@ def search(request):
         "form": form
     })
 
+def create_article(request):
+    if request.method == "POST":
+        title = request.POST["title"]
+        for word in util.list_entries():
+            if title in word:
+                return render(request, "encyclopedia/exist.html", {
+                    "title": title,
+                })
+        content = request.POST["content"]
+        util.save_entry(title, content)
+        return get_article(request, title)
+    return render(request, "encyclopedia/create_article.html")
+
 def random_page(request):
     return get_article(request, random.choice(util.list_entries()))
