@@ -7,5 +7,7 @@
 {% block body %}
 
     <div>{{ entry|safe }}</div>
+    
+    <a href="{% url 'wikipedia:edit_article' title=title %}">Edit page</a>
 
 {% endblock %}

@@ -1,12 +1,11 @@
 from django.shortcuts import render
 from django import forms
 import random
+from . import util
+import markdown2
 
 class SearchForm(forms.Form):
     search = forms.CharField(label="Search")
-
-from . import util
-import markdown2
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -66,7 +65,21 @@ def create_article(request):
         content = request.POST["content"]
         util.save_entry(title, content)
         return get_article(request, title)
-    return render(request, "encyclopedia/create_article.html")
+    return render(request, "encyclopedia/create_article.html", {
+        "form": SearchForm()
+    })
+
+def edit_article(request, title):
+    content = util.get_entry(title)
+    if request.method == "POST":
+        content = request.POST["content"]
+        util.save_entry(title, content)
+        return get_article(request, title)
+    return render(request, "encyclopedia/edit.html", {
+        "title": title,
+        "content": content,
+        "form": SearchForm()
+    })
 
 def random_page(request):
     return get_article(request, random.choice(util.list_entries()))
